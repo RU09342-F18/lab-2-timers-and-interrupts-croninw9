@@ -1,15 +1,20 @@
 # TIMER A Blink
-The TIMER peripherals can be used in many situations thanks to it flexibility in features. For this lab, you will be only scratching the surface as to what this peripheral can do. 
+The TIMER A Blink code makes two LEDs Blink at different frequencies. This differs from the Multiblink code from Lab 1 because of the use of interrupts as well as using timers.
 
-## Up, Down, Continuous 
-There are a few different ways that the timer module can count. For starters, one of the easiest to initialize is Continuous counting where in the TIMER module will alert you when its own counting register overflows. Up mode allows you to utilize a Capture/Compare register to have the counter stop at a particular count and then start back over again. You can also set the TIMER to Up/Down mode where upon hitting a counter or the overflow, instead of setting the counter back to zero, it will count back down to zero. 
+## Boards Used
+* MSP430G2553
+* MSP430FR2311
 
-## Task
-Using the TIMER module instead of a software loop, control the speed of two LEDS blinking on your development boards. Experiment with the different counting modes available as well as the effect of the pre-dividers. Why would you ever want to use a pre-divider? What about the Capture and Compare registers? Your code should include a function (if you want, place it in its own .c and .h files) which can convert a desired Hz into the proper values required to operate the TIMER modules.
+## How the Code Works (G2553)
+The code works by setting Pin 1.0 and 1.6 as an outputs. The code then creates two timers both configured to up-mode. These two timers were given different values in their timer registers and were interrupt enabled. In addition, the code enables the global interrupt. There are two different interrupt blocks of code for each timer, so each LED is set to blink in their respective timer interrupt blocks. 
 
-### Extra Work
-#### Thinking with HALs
-So maybe up to this point you have noticed that your software is looking pretty damn similar to each other for each one of these boards. What if there was a way to abstract away all of the particulars for a processor and use the same functional C code for each board? Just for this simple problem, why don't you try and build a "config.h" file which using IFDEF statements can check to see what processor is on board and initialize particular registers based on that.
+### Pin Outs
+Pin 1.0 - LED output 
+Pin 1.6 - LED Output
 
-#### Low Power Timers
-Since you should have already done a little with interrupts, why not build this system up using interrupts and when the processor is basically doing nothing other than burning clock cycles, drop it into a Low Power mode. Do a little research and figure out what some of these low power modes actually do to the processor, then try and use them in your code. If you really want to put your code to the test, using the MSP430FR5994 and the built in super cap, try and get your code to run for the longest amount of time only using that capacitor as your power source.
+## How the Code Works (FR2311)
+The code works by setting Pin 1.0 and 2.0 as an outputs. The code then creates two timers both configured to up-mode. These two timers were given different values in their timer registers and were interrupt enabled. In addition, the code enables the global interrupt. There are two different interrupt blocks of code for each timer, so each LED is set to blink in their respective timer interrupt blocks. 
+
+### Pin Outs
+Pin 1.0 - LED Output
+Pin 2.0 - LED Output
